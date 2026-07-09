@@ -57,9 +57,9 @@ const testimonials = [
 
 export function Testimonials() {
   return (
-    <section className="bg-white py-20 lg:py-28">
+    <section className="bg-white py-12 lg:py-16">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="mx-auto mb-14 max-w-2xl text-center">
+        <div className="mx-auto mb-10 max-w-2xl text-center">
           <p className="mb-3 text-xs font-bold uppercase tracking-widest text-primary">
             Testimonials
           </p>
@@ -121,7 +121,7 @@ export function CTASection({
   secondaryLabel?: string;
 }) {
   return (
-    <section className="py-20 lg:py-28">
+    <section className="pt-10 pb-16 lg:pt-12 lg:pb-20">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="relative overflow-hidden rounded-3xl bg-mesh px-8 py-16 text-center sm:px-16 lg:py-20">
           <div className="absolute inset-0 bg-gradient-to-r from-primary/20 via-transparent to-accent/20" />

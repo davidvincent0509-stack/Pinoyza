@@ -1,10 +1,6 @@
 import { NextResponse } from "next/server";
 import { contactSchema } from "@/lib/contact";
-import {
-  createResendClient,
-  getContactNotificationEmail,
-  getResendFromEmail,
-} from "@/lib/resend";
+import { sendContactEmail } from "@/lib/emails";
 
 export async function POST(request: Request) {
   try {
@@ -18,23 +14,7 @@ export async function POST(request: Request) {
       );
     }
 
-    const { name, email, subject, message } = parsed.data;
-    const resend = createResendClient();
-
-    const { error } = await resend.emails.send({
-      from: getResendFromEmail(),
-      to: getContactNotificationEmail(),
-      replyTo: email,
-      subject: `[Pinoyza Contact] ${subject}`,
-      html: `
-        <h2>New contact message</h2>
-        <p><strong>Name:</strong> ${escapeHtml(name)}</p>
-        <p><strong>Email:</strong> ${escapeHtml(email)}</p>
-        <p><strong>Subject:</strong> ${escapeHtml(subject)}</p>
-        <p><strong>Message:</strong></p>
-        <p>${escapeHtml(message).replace(/\n/g, "<br />")}</p>
-      `,
-    });
+    const { error } = await sendContactEmail(parsed.data);
 
     if (error) {
       console.error("Resend error:", error);
@@ -54,13 +34,4 @@ export async function POST(request: Request) {
 
     return NextResponse.json({ error: message }, { status: 500 });
   }
-}
-
-function escapeHtml(value: string) {
-  return value
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#39;");
 }

@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { applicationSchema, toApplicationRow } from "@/lib/applications";
+import { sendApplicationEmail } from "@/lib/emails";
 import { createSupabaseAdmin } from "@/lib/supabase/server";
 
 export async function POST(request: Request) {
@@ -38,6 +39,12 @@ export async function POST(request: Request) {
         { error: "Failed to save application. Please try again." },
         { status: 500 }
       );
+    }
+
+    const { error: emailError } = await sendApplicationEmail(parsed.data);
+
+    if (emailError) {
+      console.error("Application email error:", emailError);
     }
 
     return NextResponse.json({ success: true });
