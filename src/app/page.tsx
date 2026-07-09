@@ -9,12 +9,12 @@ import {
   Search,
   Send,
   Shield,
-  Sparkles,
   UserCheck,
   UserMinus,
   UserPlus,
   Zap,
 } from "lucide-react";
+import { BrandIcon } from "@/components/BrandIcon";
 import { ButtonLink } from "@/components/Button";
 import {
   AudienceCard,
@@ -163,8 +163,8 @@ export default function HomePage() {
 
             <div className="animate-float-delay absolute -bottom-6 -left-8 z-20 rounded-2xl border border-white/10 bg-white p-4 shadow-2xl">
               <div className="flex items-center gap-3">
-                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-primary to-accent">
-                  <Sparkles className="h-5 w-5 text-white" />
+                <div className="flex h-10 w-10 items-center justify-center overflow-hidden rounded-xl bg-white p-1.5 shadow-sm">
+                  <BrandIcon size={32} />
                 </div>
                 <div>
                   <p className="text-sm font-bold text-navy">New match found!</p>

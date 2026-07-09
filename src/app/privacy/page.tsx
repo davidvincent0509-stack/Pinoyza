@@ -95,7 +95,7 @@ No method of transmission or storage is completely secure. While we work to prot
 
 Email: privacy@pinoyza.com
 General inquiries: info@pinoyza.com
-Mail: Pinoyza, Inc., San Francisco, CA`,
+Mail: Pinoyza, Inc., San Francisco, California 94115, US`,
   },
 ];
 

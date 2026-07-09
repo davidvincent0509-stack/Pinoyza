@@ -107,7 +107,7 @@ export function Footer() {
               </p>
               <p className="flex items-center gap-2.5">
                 <MapPin className="h-4 w-4 shrink-0 text-primary" />
-                San Francisco, CA · Remote-first
+                San Francisco, California 94115, US
               </p>
             </div>
           </div>

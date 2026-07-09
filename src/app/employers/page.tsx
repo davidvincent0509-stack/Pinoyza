@@ -4,8 +4,8 @@ import {
   ClipboardList,
   ListChecks,
   Network,
-  Sparkles,
 } from "lucide-react";
+import { BrandIcon } from "@/components/BrandIcon";
 import { ButtonLink } from "@/components/Button";
 import { PageHero, SectionHeading, StepItem } from "@/components/Cards";
 import { CTASection } from "@/components/Sections";
@@ -43,35 +43,48 @@ const employerSteps = [
 const plans = [
   {
     name: "Starter",
-    price: "$0",
+    price: "Free",
     period: "14-day trial",
-    desc: "Perfect for small teams testing the platform.",
-    features: ["Up to 5 matches", "Email support", "Basic analytics"],
+    desc: "For small businesses testing the platform.",
+    features: [
+      "Up to 5 candidate matches",
+      "Basic candidate profiles",
+      "Email support",
+      "No commitment",
+    ],
+    cta: "Start Free Trial",
+    href: "/contact",
   },
   {
     name: "Professional",
-    price: "Custom",
+    price: "$299",
     period: "per month",
-    desc: "For growing companies with ongoing hiring needs.",
+    desc: "For companies actively hiring talent.",
     features: [
-      "Unlimited matches",
+      "Unlimited candidate matches",
+      "Advanced candidate search",
       "Priority support",
-      "Advanced filters",
+      "Hiring dashboard",
       "Team collaboration",
     ],
+    cta: "Get Started",
+    href: "/contact",
     featured: true,
   },
   {
     name: "Enterprise",
-    price: "Custom",
-    period: "annual contract",
-    desc: "Full-scale workforce solutions for large organizations.",
+    price: "Contact Sales",
+    period: "",
+    desc: "For companies with larger hiring needs.",
     features: [
       "Dedicated account manager",
+      "Custom hiring solutions",
       "API access",
-      "Custom integrations",
-      "SLA guarantee",
+      "Multiple team seats",
+      "Priority onboarding",
     ],
+    cta: "Contact Sales",
+    href: "/contact",
   },
 ];
 
@@ -128,8 +141,8 @@ export default function EmployersPage() {
             <div className="relative">
               <div className="rounded-2xl border border-border bg-gradient-to-br from-surface to-white p-8 shadow-xl">
                 <div className="mb-6 flex items-center gap-3">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-primary to-accent">
-                    <Sparkles className="h-6 w-6 text-white" />
+                  <div className="flex h-12 w-12 items-center justify-center overflow-hidden rounded-xl bg-white p-2 shadow-sm">
+                    <BrandIcon size={36} />
                   </div>
                   <div>
                     <p className="font-bold text-navy">Smart Match Engine</p>
@@ -189,8 +202,8 @@ export default function EmployersPage() {
       <section id="pricing" className="bg-white py-20 lg:py-28">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <SectionHeading
-            title="Plans that scale with you"
-            subtitle="From startups to enterprise — flexible pricing for every hiring need."
+            title="Simple pricing for every hiring stage"
+            subtitle="Start free, scale as you hire — plans built for growing teams and established employers."
           />
           <div className="mt-14 grid gap-6 lg:grid-cols-3">
             {plans.map((plan) => (
@@ -212,7 +225,9 @@ export default function EmployersPage() {
                   <span className="text-4xl font-extrabold text-navy">
                     {plan.price}
                   </span>
-                  <span className="text-sm text-muted">/ {plan.period}</span>
+                  {plan.period && (
+                    <span className="text-sm text-muted">/ {plan.period}</span>
+                  )}
                 </div>
                 <p className="mt-3 text-sm text-muted">{plan.desc}</p>
                 <ul className="mt-6 flex-1 space-y-3">
@@ -224,11 +239,11 @@ export default function EmployersPage() {
                   ))}
                 </ul>
                 <ButtonLink
-                  href="/contact"
+                  href={plan.href}
                   variant={plan.featured ? "primary" : "outline"}
                   className="mt-8 w-full"
                 >
-                  Contact Sales
+                  {plan.cta}
                 </ButtonLink>
               </div>
             ))}

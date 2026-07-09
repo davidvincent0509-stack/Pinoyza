@@ -99,7 +99,7 @@ Our total liability for any claim shall not exceed the amount you paid to PINOYZ
     body: `Questions about these Terms:
 
 Email: info@pinoyza.com
-Mail: Pinoyza, Inc., San Francisco, CA`,
+Mail: Pinoyza, Inc., San Francisco, California 94115, US`,
   },
 ];
 

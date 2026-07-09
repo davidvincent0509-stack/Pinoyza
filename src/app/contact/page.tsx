@@ -20,7 +20,7 @@ const contactInfo = [
   {
     icon: MapPin,
     title: "Headquarters",
-    detail: "San Francisco, CA · Remote-first",
+    detail: "San Francisco, California 94115, US",
   },
   {
     icon: Clock,
@@ -34,10 +34,43 @@ const inputClass =
 
 export default function ContactPage() {
   const [sent, setSent] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setSent(true);
+    setSubmitting(true);
+    setError(null);
+
+    const form = e.currentTarget;
+    const formData = new FormData(form);
+
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: formData.get("name"),
+          email: formData.get("email"),
+          subject: formData.get("subject"),
+          message: formData.get("message"),
+        }),
+      });
+
+      const json = (await res.json().catch(() => ({}))) as { error?: string };
+
+      if (!res.ok) {
+        setError(json.error ?? "Failed to send message. Please try again.");
+        return;
+      }
+
+      setSent(true);
+      form.reset();
+    } catch {
+      setError("Network error. Check your connection and try again.");
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
@@ -129,6 +162,7 @@ export default function ContactPage() {
                         </label>
                         <input
                           required
+                          name="name"
                           className={inputClass}
                           placeholder="John Smith"
                         />
@@ -140,6 +174,7 @@ export default function ContactPage() {
                         <input
                           required
                           type="email"
+                          name="email"
                           className={inputClass}
                           placeholder="you@company.com"
                         />
@@ -151,6 +186,7 @@ export default function ContactPage() {
                       </label>
                       <input
                         required
+                        name="subject"
                         className={inputClass}
                         placeholder="How can we help?"
                       />
@@ -161,13 +197,19 @@ export default function ContactPage() {
                       </label>
                       <textarea
                         required
+                        name="message"
                         rows={5}
                         className={inputClass}
                         placeholder="Tell us more about your inquiry..."
                       />
                     </div>
-                    <Button type="submit" size="lg">
-                      Send Message
+                    {error && (
+                      <p className="rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-600">
+                        {error}
+                      </p>
+                    )}
+                    <Button type="submit" size="lg" disabled={submitting}>
+                      {submitting ? "Sending…" : "Send Message"}
                     </Button>
                   </form>
                 </>

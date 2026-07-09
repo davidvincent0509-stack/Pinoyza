@@ -59,7 +59,7 @@ export function Logo({
         )}
         aria-label="PINOYZA — Home"
       >
-        <LogoMark size="lg" context={context} />
+        <LogoMark size="lg" context={context} onDark={isLight} />
         {wordmark}
         {tagline}
       </Link>
@@ -79,7 +79,7 @@ export function Logo({
       <LogoMark
         size={size}
         context={context}
-        blendWithNav={isNavbar && !navTransparent}
+        onDark={isNavbar && navTransparent}
         className="transition-opacity group-hover:opacity-90"
       />
       <span className="shrink-0 self-center">{wordmark}</span>

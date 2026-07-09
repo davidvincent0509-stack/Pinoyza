@@ -10,8 +10,8 @@ type LogoMarkProps = {
   className?: string;
   size?: "sm" | "md" | "lg";
   context?: "navbar" | "default";
-  /** When true, icon bg is matched to the solid/scrolled navbar */
-  blendWithNav?: boolean;
+  /** Dark hero navbar — use white-backed mark */
+  onDark?: boolean;
 };
 
 const sizePx = {
@@ -23,20 +23,20 @@ export function LogoMark({
   className,
   size = "md",
   context = "default",
-  blendWithNav = false,
+  onDark = false,
 }: LogoMarkProps) {
   const px = sizePx[context][size];
+  const src = onDark ? "/brand/mark-white.svg" : "/brand/mark.svg";
 
   return (
     // eslint-disable-next-line @next/next/no-img-element
     <img
-      src="/brand/mark.svg"
+      src={src}
       alt=""
       width={px}
       height={px}
       className={clsx(
         "block shrink-0 border-0 bg-transparent p-0 shadow-none outline-none object-contain",
-        context === "navbar" && blendWithNav && "rounded-[22%] bg-white",
         className
       )}
       aria-hidden
