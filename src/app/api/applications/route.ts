@@ -35,6 +35,18 @@ export async function POST(request: Request) {
         );
       }
 
+      if (error.code === "42501") {
+        return NextResponse.json(
+          {
+            error:
+              process.env.NODE_ENV === "development"
+                ? "Supabase permission denied. Run grant insert on applications for service_role in Supabase SQL Editor."
+                : "Failed to save application. Please try again.",
+          },
+          { status: 500 }
+        );
+      }
+
       return NextResponse.json(
         { error: "Failed to save application. Please try again." },
         { status: 500 }

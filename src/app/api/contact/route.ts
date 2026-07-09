@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { contactSchema } from "@/lib/contact";
 import { sendContactEmail } from "@/lib/emails";
+import { formatResendError } from "@/lib/resend";
 
 export async function POST(request: Request) {
   try {
@@ -19,7 +20,7 @@ export async function POST(request: Request) {
     if (error) {
       console.error("Resend error:", error);
       return NextResponse.json(
-        { error: "Failed to send message. Please try again." },
+        { error: formatResendError(error) },
         { status: 500 }
       );
     }
