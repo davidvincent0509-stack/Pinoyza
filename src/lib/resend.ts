@@ -2,7 +2,7 @@ import { Resend } from "resend";
 
 type ResendError = {
   message?: string;
-  statusCode?: number;
+  statusCode?: number | null;
 };
 
 export function createResendClient() {
