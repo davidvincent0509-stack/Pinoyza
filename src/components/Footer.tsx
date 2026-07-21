@@ -142,7 +142,7 @@ export function Footer() {
             </form>
             <div className="mt-6 flex gap-3">
               {[
-                { icon: Facebook, label: "Facebook", href: "https://facebook.com" },
+                { icon: Facebook, label: "Facebook", href: "https://www.facebook.com/pinoyza" },
                 { icon: Linkedin, label: "LinkedIn", href: "https://www.linkedin.com/company/pinoyza" },
                 { icon: Mail, label: "Email", href: "mailto:info@pinoyza.com" },
               ].map(({ icon: Icon, label, href }) => (
