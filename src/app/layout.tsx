@@ -12,8 +12,8 @@ const jakarta = Plus_Jakarta_Sans({
 
 export const metadata: Metadata = {
   title: {
-    default: "PINOYZA — PEOPLE. OPPORTUNITIES. GROWTH.",
-    template: "%s | PINOYZA",
+    default: "Pinoyza",
+    template: "%s | Pinoyza",
   },
   description:
     "PINOYZA is a workforce consulting firm connecting talent with employers. Staffing solutions, verified opportunities, and trusted hiring partnerships.",
@@ -25,7 +25,7 @@ export const metadata: Metadata = {
     "employment services",
   ],
   openGraph: {
-    title: "PINOYZA — PEOPLE. OPPORTUNITIES. GROWTH.",
+    title: "Pinoyza",
     description:
       "A trusted workforce consulting firm connecting professionals with leading employers worldwide.",
     url: "https://pinoyza.com",
