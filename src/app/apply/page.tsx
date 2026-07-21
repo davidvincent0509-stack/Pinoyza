@@ -8,7 +8,7 @@ import { z } from "zod";
 import { ChevronRight, Lock, CheckCircle2 } from "lucide-react";
 import { Button } from "@/components/Button";
 import { USLocationInput } from "@/components/USLocationInput";
-import { jobTypeGroups } from "@/lib/job-types";
+import { jobTypeOptions } from "@/lib/job-types";
 import { clsx } from "clsx";
 
 function formatUSPhone(value: string): string {
@@ -463,14 +463,10 @@ export default function ApplyPage() {
                   className={inputClass}
                 >
                   <option value="">Select job type</option>
-                  {jobTypeGroups.map((group) => (
-                    <optgroup key={group.label} label={group.label}>
-                      {group.options.map((option) => (
-                        <option key={option} value={option}>
-                          {option}
-                        </option>
-                      ))}
-                    </optgroup>
+                  {jobTypeOptions.map((option) => (
+                    <option key={option} value={option}>
+                      {option}
+                    </option>
                   ))}
                 </select>
               </FormField>
