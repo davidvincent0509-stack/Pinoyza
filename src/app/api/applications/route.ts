@@ -1,6 +1,5 @@
 import { NextResponse } from "next/server";
 import { applicationSchema, toApplicationRow } from "@/lib/applications";
-import { sendApplicationEmail } from "@/lib/emails";
 import { createSupabaseAdmin } from "@/lib/supabase/server";
 
 export async function POST(request: Request) {
@@ -15,42 +14,54 @@ export async function POST(request: Request) {
       );
     }
 
-    let savedToDatabase = false;
+    const supabase = createSupabaseAdmin();
+    const { error } = await supabase
+      .from("applications")
+      .insert(toApplicationRow(parsed.data));
 
-    try {
-      const supabase = createSupabaseAdmin();
-      const { error } = await supabase
-        .from("applications")
-        .insert(toApplicationRow(parsed.data));
+    if (error) {
+      console.error("Supabase insert error:", error);
 
-      if (error) {
-        console.error("Supabase insert error:", error);
-      } else {
-        savedToDatabase = true;
+      if (error.message === "Invalid API key") {
+        return NextResponse.json(
+          {
+            error:
+              process.env.NODE_ENV === "development"
+                ? "Supabase API key is invalid. Check SUPABASE_SERVICE_ROLE_KEY."
+                : "Failed to save application. Please try again.",
+          },
+          { status: 500 }
+        );
       }
-    } catch (err) {
-      console.error("Supabase client error:", err);
+
+      if (error.code === "42501") {
+        return NextResponse.json(
+          {
+            error:
+              process.env.NODE_ENV === "development"
+                ? "Supabase permission denied. Grant insert on applications for service_role."
+                : "Failed to save application. Please try again.",
+          },
+          { status: 500 }
+        );
+      }
+
+      return NextResponse.json(
+        { error: "Failed to save application. Please try again." },
+        { status: 500 }
+      );
     }
 
-    const { error: emailError } = await sendApplicationEmail(parsed.data);
-
-    if (emailError) {
-      console.error("Application email error:", emailError);
-    }
-
-    if (savedToDatabase || !emailError) {
-      return NextResponse.json({ success: true });
-    }
-
-    return NextResponse.json(
-      { error: "Failed to save application. Please try again." },
-      { status: 500 }
-    );
+    return NextResponse.json({ success: true });
   } catch (err) {
     console.error("Application API error:", err);
-    return NextResponse.json(
-      { error: "Something went wrong. Please try again." },
-      { status: 500 }
-    );
+    const message =
+      err instanceof Error && err.message.includes("Missing Supabase")
+        ? "Server is not configured for submissions yet."
+        : err instanceof Error && err.message.includes("Invalid Supabase key")
+          ? err.message
+          : "Something went wrong. Please try again.";
+
+    return NextResponse.json({ error: message }, { status: 500 });
   }
 }

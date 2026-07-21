@@ -2,11 +2,12 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { useForm } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { ChevronRight, Lock, CheckCircle2 } from "lucide-react";
 import { Button } from "@/components/Button";
+import { USLocationInput } from "@/components/USLocationInput";
 import { clsx } from "clsx";
 
 function formatUSPhone(value: string): string {
@@ -367,10 +368,19 @@ export default function ApplyPage() {
                   label="Current Location"
                   error={basicForm.formState.errors.location?.message}
                 >
-                  <input
-                    {...basicForm.register("location")}
-                    className={inputClass}
-                    placeholder="City, Province"
+                  <Controller
+                    name="location"
+                    control={basicForm.control}
+                    render={({ field }) => (
+                      <USLocationInput
+                        value={field.value ?? ""}
+                        onChange={field.onChange}
+                        onBlur={field.onBlur}
+                        error={basicForm.formState.errors.location?.message}
+                        className={inputClass}
+                        placeholder="City, State"
+                      />
+                    )}
                   />
                 </FormField>
                 <FormField
