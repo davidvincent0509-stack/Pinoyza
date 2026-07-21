@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { Globe, Heart, MapPin, Target, Users } from "lucide-react";
 import { PageHero, SectionHeading } from "@/components/Cards";
-import { CTASection, StatsBar } from "@/components/Sections";
+import { CTASection, CompanyFactsBar } from "@/components/Sections";
 
 export const metadata = {
   title: "About Us",
@@ -108,7 +108,7 @@ export default function AboutPage() {
         subtitle="Pinoyza is a workforce platform founded in 2024 — connecting skilled professionals with employers through a process that is free, transparent, and human."
       />
 
-      <StatsBar />
+      <CompanyFactsBar />
 
       <section className="bg-white py-16 lg:py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">

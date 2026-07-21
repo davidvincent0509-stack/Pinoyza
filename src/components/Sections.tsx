@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { ArrowRight, Star } from "lucide-react";
+import { ArrowRight, Building2, Globe2, MapPin, Star } from "lucide-react";
 
 const stats = [
   { value: "Free", label: "For job seekers" },
@@ -21,6 +21,49 @@ export function StatsBar() {
               {stat.value}
             </p>
             <p className="mt-1 text-sm font-medium text-muted">{stat.label}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+const companyFacts = [
+  {
+    icon: Building2,
+    label: "Founded",
+    value: "2024",
+  },
+  {
+    icon: MapPin,
+    label: "Headquarters",
+    value: "San Francisco, CA",
+  },
+  {
+    icon: Globe2,
+    label: "Industry",
+    value: "Staffing & Recruiting",
+  },
+  {
+    icon: MapPin,
+    label: "Markets served",
+    value: "United States",
+  },
+];
+
+export function CompanyFactsBar() {
+  return (
+    <section className="relative z-10 -mt-8 mx-4 sm:mx-6 lg:mx-auto lg:max-w-5xl">
+      <div className="grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-border bg-border shadow-xl lg:grid-cols-4">
+        {companyFacts.map((fact) => (
+          <div key={fact.label} className="bg-white px-5 py-6 sm:px-6">
+            <fact.icon className="mb-3 h-5 w-5 text-primary" />
+            <p className="text-xs font-semibold uppercase tracking-wide text-muted">
+              {fact.label}
+            </p>
+            <p className="mt-1 text-sm font-bold text-navy sm:text-base">
+              {fact.value}
+            </p>
           </div>
         ))}
       </div>
