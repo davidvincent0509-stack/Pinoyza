@@ -63,7 +63,7 @@ const leadership = [
     role: "Candidate Experience Lead",
     bio: "Ensures every applicant receives clear communication, support, and a professional experience from apply to match.",
     image:
-      "https://images.unsplash.com/photo-1519085368739-7c1060d0376e?w=600&h=600&fit=crop&crop=faces",
+      "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&h=600&fit=crop&crop=faces",
   },
 ];
 
